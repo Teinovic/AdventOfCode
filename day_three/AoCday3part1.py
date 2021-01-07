@@ -1,19 +1,16 @@
 with open('input.txt') as f:
-    tobogganinput = f.read().splitlines()
+    tobogganinput = [string.strip('\n') for string in f.readlines()]
 
-extended_toboggan = []
-b = 1
+def trees_cut(start=0, right=3, down=1):
+    position_on_slope = 0
+    trees_cut_counter = 0
+    for slope_location_index in range(start, len(tobogganinput), down):
+        slope = tobogganinput[slope_location_index]
+        if slope[position_on_slope] == '#':
+            trees_cut_counter += 1
+        position_on_slope += right
+        position_on_slope = position_on_slope % len(slope)
 
-for string in tobogganinput:
-    a = string * b
-    extended_toboggan.append(a)
-    b += 1
+    return trees_cut_counter
 
-trees_hit = 0
-steps = 0
-for string in extended_toboggan:
-    if string[steps] == '#':
-        trees_hit += 1
-    steps += 3
-
-print(trees_hit)
+print(trees_cut())
