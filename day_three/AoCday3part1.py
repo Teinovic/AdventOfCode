@@ -7,7 +7,7 @@ b = 1
 for string in tobogganinput:
     a = string * b
     extended_toboggan.append(a)
-    b += 2
+    b += 1
 
 trees_hit = 0
 steps = 0
