@@ -15,10 +15,10 @@ def trees_cut(right=3, down=1):
 
 ### day 2 ###
 
-def trees_cut_by_5_trajectories():
+def trees_cut_by_5_trajectories_multiplied():
     return trees_cut(1) * trees_cut(3) * trees_cut(5) * trees_cut(7) * trees_cut(1, 2)
 
-print(trees_cut_by_5_trajectories())
+print(trees_cut_by_5_trajectories_multiplied())
 
 
 
