@@ -53,48 +53,61 @@
 
 import math
 
-with open('input.txt') as input:
-    boarding_passes = input.read().split()
 
-highest_ID = 0
-seat_id_list = []
+class HighestIDFinder():
+    """
+    Finds the longest highest id for an Advent of Code challenge
+    """
+    def find_seat_id(self, boarding_pass):
 
-for boarding_pass in boarding_passes:
-    row_lowest = 0
-    row_highest = 127
-    column_lowest = 0
-    column_highest = 7
+        self.boarding_pass = boarding_pass
 
-    for letter in boarding_pass[0:7]:
-        if letter == 'B':
-            row_lowest = math.ceil((row_highest + row_lowest) / 2)
-        elif letter == 'F':
-            row_highest = (row_highest + row_lowest) // 2
+        def find_the_row(row_lowest=0, row_highest=127):
+            for letter in self.boarding_pass[0:7]:
+                if letter == 'B':
+                    row_lowest = math.ceil((row_highest + row_lowest) / 2)
+                elif letter == 'F':
+                    row_highest = (row_highest + row_lowest) // 2
+            return row_lowest
+
+        def find_the_column(column_lowest=0, column_highest=7):
+            for letter in self.boarding_pass[7:10]:
+                if letter == "L":
+                    column_highest = (column_lowest + column_highest) // 2
+                elif letter == 'R':
+                    column_lowest = math.ceil(((column_lowest + column_highest) / 2))
+            return column_lowest
+
+        return (8 * find_the_row()) + find_the_column()
+
+    def find_the_highest_id(self):
+        def file_opener():
+            with open('input.txt') as input:
+                return input.read().split()
+        lst = []
+        for id in file_opener():
+            lst.append(instance.find_seat_id(id))
+        return f'The highest ID is {max(lst)}'
+
+    def find_your_seat(self):
+        def file_opener():
+            with open('input.txt') as input:
+                return input.read().split()
+        lst = []
+        for id in file_opener():
+            lst.append(instance.find_seat_id(id))
+        sorted_list = sorted(lst)
+        index = 0
+        for id in sorted_list:
+            if sorted_list[index] + 1 < sorted_list[index + 1]:
+                return f'My seat is: {sorted_list[index] + 1}'
+                break
+            index += 1
 
 
-    row = row_lowest
 
-    for letter in boarding_pass[7:10]:
-        if letter == "L":
-            column_highest = (column_lowest + column_highest) // 2
-        else:
-            column_lowest = math.ceil(((column_lowest + column_highest) / 2))
-    column = column_lowest
 
-    seat_ID = (8*row) + column
-    seat_id_list.append(seat_ID)
-    if seat_ID > highest_ID:
-        highest_ID = seat_ID
-
-print("Highest ID is: " + str(highest_ID))
-
-sorted_list = sorted(seat_id_list)
-
-index = 0
-for id in sorted_list:
-    if sorted_list[index] + 1 < sorted_list[index + 1]:
-        print('My seat is:' + str(sorted_list[index] + 1))
-        break
-    index += 1
-
+instance = HighestIDFinder()
+print(instance.find_the_highest_id())
+print(instance.find_your_seat())
 
