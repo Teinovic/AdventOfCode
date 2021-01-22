@@ -100,8 +100,7 @@ class HighestIDFinder():
         index = 0
         for id in sorted_list:
             if sorted_list[index] + 1 < sorted_list[index + 1]:
-                return f'My seat is: {sorted_list[index] + 1}'
-                break
+                return f'My seat is: {sorted_list[index] + 1}
             index += 1
 
 
